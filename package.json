@@ -1,0 +1,46 @@
+{
+  "name": "acquali-word-cloud",
+  "version": "1.0.0",
+  "description": "A useful wordcloud generation tool for Acquali.",
+  "main": "none",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "author": "Tim Gass",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bourbon": "^4.3.4",
+    "browserify": "^11.0.1",
+    "element-xpath": "0.0.4",
+    "get-query-selector": "0.0.1",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.4",
+    "jquery": "^3.2.1",
+    "node-neat": "^2.0.0-beta.0",
+    "normalize-css": "^2.3.1",
+    "optimal-select": "^4.0.1",
+    "vinyl-source-stream": "^1.1.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-node6": "^11.0.0",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
+    "event-stream": "^3.3.4",
+    "glob": "^7.1.2",
+    "gulp-gh-pages": "^0.5.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-uglify": "^2.1.2",
+    "gulp-util": "^3.0.8",
+    "history": "^1.17.0",
+    "jquery": "^3.2.1",
+    "react": "^0.14.9",
+    "react-dom": "^0.14.7",
+    "react-router": "^1.0.3",
+    "vinyl-buffer": "^1.0.1"
+  }
+}
