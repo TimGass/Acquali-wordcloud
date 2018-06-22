@@ -24,12 +24,20 @@ class Home extends React.Component {
       </div>);
     this.setState({ lockSearch: false, errorBox: box });
     document.querySelector("#searchBar").style.borderColor = "#4f4f4f";
+    function isLetter(str) {
+      return str.length === 1 && str.match(/[a-zA-Z0-9\t\n ./<>?;\,:"'`!@#$%^&*()\]\[}_+=|\\-]/g);
+    }
     var input;
-    if(event.keyCode === 8){
-      input = event.target.value.substring(0,event.target.selectionStart-1) + event.target.value.substring(event.target.selectionStart, event.target.value.length);
+    if(isLetter(event.key)){
+      input = event.target.value.substring(0,event.target.selectionStart) + event.key + event.target.value.substring(event.target.selectionStart, event.target.value.length);
     }
     else {
-      input = event.target.value.substring(0,event.target.selectionStart) + event.key + event.target.value.substring(event.target.selectionStart, event.target.value.length);
+      if(event.keyCode === 8){
+        input = event.target.value.substring(0,event.target.selectionStart-1) + event.target.value.substring(event.target.selectionStart, event.target.value.length);
+      }
+      else {
+        return; //kill process, we really don't care about this key
+      }
     }
     let filter = (item, index) => {
       if(item.length <= 0 || !item){

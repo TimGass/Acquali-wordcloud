@@ -10,6 +10,7 @@ var plumber = require('gulp-plumber');
 var glob = require('glob');
 var stream = require("event-stream");
 var gutil = require("gulp-util");
+var ghPages = require('gulp-gh-pages');
 
 function bundle(file){
   var srcval = file.replace("src/js/", "");
