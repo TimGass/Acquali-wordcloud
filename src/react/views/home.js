@@ -29,11 +29,11 @@ class Home extends React.Component {
     }
     var input;
     if(isLetter(event.key)){
-      input = event.target.value + event.key;
+      input = event.target.value.substring(0,event.target.selectionStart) + event.key + event.target.value.substring(event.target.selectionStart, event.target.value.length);
     }
     else {
       if(event.keyCode === 8){
-        input = event.target.value.substring(0,event.target.value.length-1);
+        input = event.target.value.substring(0,event.target.selectionStart-1) + event.target.value.substring(event.target.selectionStart, event.target.value.length);
       }
       else {
         return; //kill process, we really don't care about this key
