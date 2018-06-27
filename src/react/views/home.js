@@ -27,18 +27,7 @@ class Home extends React.Component {
     function isLetter(str) {
       return str.length === 1 && str.match(/[a-zA-Z0-9\t\n ./<>?;\,:"'`!@#$%^&*()\]\[}_+=|\\-]/g);
     }
-    var input;
-    if(isLetter(event.key) && !event.ctrlKey){
-      input = event.target.value.substring(0,event.target.selectionStart) + event.key + event.target.value.substring(event.target.selectionStart, event.target.value.length);
-    }
-    else {
-      if((event.keyCode && event.keyCode === 8) || event.key === "Control"){
-        input = event.target.value.substring(0,event.target.selectionStart-1) + event.target.value.substring(event.target.selectionStart, event.target.value.length);
-      }
-      else {
-        return; //kill process, we really don't care about this key
-      }
-    }
+    var input = event.target.value;
     let filter = (item, index) => {
       if(item.length <= 0 || !item){
         let urlCopy = this.state.urlErrors;
@@ -71,13 +60,20 @@ class Home extends React.Component {
       var pattern =  /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
       return (pattern.test(str) && (str.match(/\./g).length === 2) && (str.lastIndexOf(".") +2 < str.length)); //one for 0 indexing the other for the fact that ICANN does not allow single character url endings
     }
+    let errors = [];
+    this.state.urlErrors.forEach((item) => {
+      if(item+1 <= searchTerms.length){
+        errors.push(item);
+      }
+    });
+    this.setState({ urlErrors: errors });
     if(searchTerms.length <= 5){
       let searchPromise = new Promise((resolve, reject) => {
         return resolve(searchTerms.forEach((item, index) => {
           if(!isURL(item)){
-            let temp = "https://" + item;
+            var temp = "https://" + item;
             if(!isURL(temp)){
-              let temp = "https://www." + item;
+              temp = "https://www." + item;
               if(!isURL(temp)){
                 let urlCopy = this.state.urlErrors;
                 if(urlCopy.indexOf(index) == -1){
@@ -225,7 +221,7 @@ class Home extends React.Component {
         </header>
         <h2 id="title">FREE Competitor Word Cloud Tool</h2>
         {this.state.errorBox}
-        <input id="searchBar" type="text" name="" onKeyDown={this.barHandler} onKeyUp={this.barHandler}/>
+        <input id="searchBar" type="text" name="" onKeyUp={this.barHandler}/>
         <button id="search" onClick={this.searchHandler}>Create Word Cloud</button>
       </div>);
   }
