@@ -15,7 +15,7 @@ class Home extends React.Component {
   }
 
   barHandler(event){
-    if(event.keyCode === 13){
+    if((event.keyCode && event.keyCode === 13) || event.key === "Enter"){
       return this.searchHandler();
     }
     let box = (
@@ -28,11 +28,11 @@ class Home extends React.Component {
       return str.length === 1 && str.match(/[a-zA-Z0-9\t\n ./<>?;\,:"'`!@#$%^&*()\]\[}_+=|\\-]/g);
     }
     var input;
-    if(isLetter(event.key)){
+    if(isLetter(event.key) && !event.ctrlKey){
       input = event.target.value.substring(0,event.target.selectionStart) + event.key + event.target.value.substring(event.target.selectionStart, event.target.value.length);
     }
     else {
-      if(event.keyCode === 8){
+      if((event.keyCode && event.keyCode === 8) || event.key === "Control"){
         input = event.target.value.substring(0,event.target.selectionStart-1) + event.target.value.substring(event.target.selectionStart, event.target.value.length);
       }
       else {
@@ -225,7 +225,7 @@ class Home extends React.Component {
         </header>
         <h2 id="title">FREE Competitor Word Cloud Tool</h2>
         {this.state.errorBox}
-        <input id="searchBar" type="text" name="" onKeyDown={this.barHandler}/>
+        <input id="searchBar" type="text" name="" onKeyDown={this.barHandler} onKeyUp={this.barHandler}/>
         <button id="search" onClick={this.searchHandler}>Create Word Cloud</button>
       </div>);
   }
