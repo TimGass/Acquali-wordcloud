@@ -224,7 +224,7 @@ class Home extends React.Component {
         </header>
         <h2 id="title">FREE Competitor Word Cloud Tool</h2>
         {this.state.errorBox}
-        <input id="searchBar" type="text" name="" onKeyUp={this.barHandler}/>
+        <input id="searchBar" type="text" name="" onKeyUp={this.barHandler} onChange={this.barHandler}/>
         <button id="search" onClick={this.searchHandler}>Create Word Cloud</button>
       </div>);
   }
