@@ -5,7 +5,7 @@ class Home extends React.Component {
   constructor(props){
     let box = (
       <div>
-        <h3 id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</h3>
+        <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
       </div>);
     super(props);
     this.state = { lockSearch: true, errorBox: box, urlErrors: [] };
@@ -20,7 +20,7 @@ class Home extends React.Component {
     }
     let box = (
       <div>
-        <h3 id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</h3>
+        <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
       </div>);
     this.setState({ lockSearch: false, errorBox: box });
     document.querySelector("#searchBar").style.borderColor = "#4f4f4f";
@@ -47,7 +47,7 @@ class Home extends React.Component {
           else {
             let box = (
               <div>
-                <h3 id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</h3>
+                <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
               </div>);
           }
           this.setState({urlErrors: urlCopy, errorBox: box});
@@ -58,7 +58,7 @@ class Home extends React.Component {
     let searchTerms = input.replace(/\s/g,'').split(",").filter(filter);
     function isURL(str) {
       var pattern =  /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
-      return (pattern.test(str) && (str.match(/\./g).length === 2) && (str.lastIndexOf(".") +2 < str.length)); //one for 0 indexing the other for the fact that ICANN does not allow single character url endings
+      return (pattern.test(str) && (str.match(/\./g).length >= 1) && ((str.lastIndexOf(".") +2 < str.length) || (str.lastIndexOf(".") +1 === str.length))); //one for 0 indexing the other for the fact that ICANN does not allow single character url endings
     }
     let errors = [];
     this.state.urlErrors.forEach((item) => {
@@ -108,7 +108,7 @@ class Home extends React.Component {
                   else {
                     let box = (
                       <div>
-                        <h3 id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</h3>
+                        <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
                       </div>);
                   }
                   this.setState({urlErrors: urlCopy, errorBox: box});
@@ -133,7 +133,7 @@ class Home extends React.Component {
                 else {
                   let box = (
                     <div>
-                      <h3 id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</h3>
+                      <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
                     </div>);
                 }
                 this.setState({urlErrors: urlCopy, errorBox: box});
@@ -158,7 +158,7 @@ class Home extends React.Component {
               else {
                 let box = (
                   <div>
-                    <h3 id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</h3>
+                    <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
                   </div>);
               }
               this.setState({urlErrors: urlCopy, errorBox: box});
