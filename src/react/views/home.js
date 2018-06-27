@@ -183,6 +183,9 @@ class Home extends React.Component {
               </div>);
             this.setState({ errorBox: box });
           }
+          else {
+            this.setState({ lockSearch: true });
+          }
         }
       });
     }
