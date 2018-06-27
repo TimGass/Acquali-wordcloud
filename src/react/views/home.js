@@ -119,6 +119,54 @@ class Home extends React.Component {
                 }
               }
             }
+            else {
+              let urlCopy = this.state.urlErrors;
+              let errorIndex = urlCopy.indexOf(index);
+              if(errorIndex !== -1){
+                urlCopy.splice(errorIndex,1);
+                if(urlCopy.length > 0){
+                  let box = (
+                    <div>
+                      <ul id="errorBox">
+                        {urlCopy.map((item, i) => <li className="error" key={item}>Url {item+1} is not formatted correctly!</li>)}
+                      </ul>
+                      <div className="triangleDown">
+                      </div>
+                    </div>);
+                }
+                else {
+                  let box = (
+                    <div>
+                      <h3 id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</h3>
+                    </div>);
+                }
+                this.setState({urlErrors: urlCopy, errorBox: box});
+              }
+            }
+          }
+          else {
+            let urlCopy = this.state.urlErrors;
+            let errorIndex = urlCopy.indexOf(index);
+            if(errorIndex !== -1){
+              urlCopy.splice(errorIndex,1);
+              if(urlCopy.length > 0){
+                let box = (
+                  <div>
+                    <ul id="errorBox">
+                      {urlCopy.map((item, i) => <li className="error" key={item}>Url {item+1} is not formatted correctly!</li>)}
+                    </ul>
+                    <div className="triangleDown">
+                    </div>
+                  </div>);
+              }
+              else {
+                let box = (
+                  <div>
+                    <h3 id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</h3>
+                  </div>);
+              }
+              this.setState({urlErrors: urlCopy, errorBox: box});
+            }
           }
         }));
       });
