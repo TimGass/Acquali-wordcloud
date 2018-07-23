@@ -3,10 +3,7 @@ import $ from "jquery";
 
 class Home extends React.Component {
   constructor(props){
-    let box = (
-      <div>
-        <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
-      </div>);
+    let box = null;
     super(props);
     this.state = { lockSearch: true, errorBox: box, urlErrors: [] };
     this.searchHandler = this.searchHandler.bind(this);
@@ -18,10 +15,7 @@ class Home extends React.Component {
     if((event.keyCode && event.keyCode === 13) || event.key === "Enter"){
       return this.searchHandler();
     }
-    let box = (
-      <div>
-        <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
-      </div>);
+    let box = null;
     this.setState({ lockSearch: false, errorBox: box });
     document.querySelector("#searchBar").style.borderColor = "#4f4f4f";
     function isLetter(str) {
@@ -40,15 +34,10 @@ class Home extends React.Component {
                 <ul id="errorBox">
                   {urlCopy.map((item, i) => <li className="error" key={item}>Url {item+1} is not formatted correctly!</li>)}
                 </ul>
-                <div className="triangleDown">
-                </div>
               </div>);
           }
           else {
-            let box = (
-              <div>
-                <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
-              </div>);
+            let box = null;
           }
           this.setState({urlErrors: urlCopy, errorBox: box});
         }
@@ -84,8 +73,6 @@ class Home extends React.Component {
                     <ul id="errorBox">
                       {urlCopy.map((item, i) => <li className="error" key={item}>Url {item+1} is not formatted correctly!</li>)}
                     </ul>
-                    <div className="triangleDown">
-                    </div>
                   </div>);
                 this.setState({ lockSearch: true, errorBox: box, urlErrors: urlCopy });
                 document.querySelector("#searchBar").style.borderColor = "red";
@@ -101,15 +88,10 @@ class Home extends React.Component {
                         <ul id="errorBox">
                           {urlCopy.map((item, i) => <li className="error" key={item}>Url {item+1} is not formatted correctly!</li>)}
                         </ul>
-                        <div className="triangleDown">
-                        </div>
                       </div>);
                   }
                   else {
-                    let box = (
-                      <div>
-                        <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
-                      </div>);
+                    let box = null;
                   }
                   this.setState({urlErrors: urlCopy, errorBox: box});
                 }
@@ -126,15 +108,10 @@ class Home extends React.Component {
                       <ul id="errorBox">
                         {urlCopy.map((item, i) => <li className="error" key={item}>Url {item+1} is not formatted correctly!</li>)}
                       </ul>
-                      <div className="triangleDown">
-                      </div>
                     </div>);
                 }
                 else {
-                  let box = (
-                    <div>
-                      <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
-                    </div>);
+                  let box = null;
                 }
                 this.setState({urlErrors: urlCopy, errorBox: box});
               }
@@ -151,15 +128,10 @@ class Home extends React.Component {
                     <ul id="errorBox">
                       {urlCopy.map((item, i) => <li className="error" key={item}>Url {item+1} is not formatted correctly!</li>)}
                     </ul>
-                    <div className="triangleDown">
-                    </div>
                   </div>);
               }
               else {
-                let box = (
-                  <div>
-                    <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
-                  </div>);
+                let box = null;
               }
               this.setState({urlErrors: urlCopy, errorBox: box});
             }
@@ -178,8 +150,6 @@ class Home extends React.Component {
                 <ul id="errorBox">
                   {this.state.urlErrors.map((item, i) => <li className="error" key={item}>Url {item+1} is not formatted correctly!</li>)}
                 </ul>
-                <div className="triangleDown">
-                </div>
               </div>);
             this.setState({ errorBox: box });
           }
@@ -195,8 +165,6 @@ class Home extends React.Component {
           <ul id="errorBox">
             <li id="tooManyTermsErr" className="error">You have too many URLs in the search bar!</li>
           </ul>
-          <div className="triangleDown">
-          </div>
         </div>);
       this.setState({ lockSearch: true, errorBox: box });
       document.querySelector("#searchBar").style.borderColor = "red";
@@ -212,6 +180,12 @@ class Home extends React.Component {
   }
 
   render(){
+    if(this.state.urlErrors.length === 0){
+      var errorClass = "";
+    }
+    else {
+      var errorClass = "error";
+    }
     return (
       <div>
         <header>
@@ -223,9 +197,10 @@ class Home extends React.Component {
           <a id="howLink" href="#how">How it Works</a>
         </header>
         <h2 id="title">FREE Competitor Word Cloud Tool</h2>
-        {this.state.errorBox}
-        <input id="searchBar" type="text" name="" onKeyUp={this.barHandler} onChange={this.barHandler}/>
+        <label htmlFor="searchBar" id="searchInst">Enter up to 5 of your competitors' URLs (seperated by a comma)</label>
+        <input id="searchBar" className={errorClass} type="text" name="" onKeyUp={this.barHandler} onChange={this.barHandler}/>
         <button id="search" onClick={this.searchHandler}>Create Word Cloud</button>
+        {this.state.errorBox}
       </div>);
   }
 }
